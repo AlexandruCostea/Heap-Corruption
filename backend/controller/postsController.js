@@ -1,4 +1,5 @@
-const list = require('../model/data.js');
+import postsData from '../model/data.js';
+const list = postsData;
 
 const getPosts = (req, res) => {
     if (list.length > 0) {
@@ -110,4 +111,4 @@ const deletePost = (req, res) => {
     }
 }
 
-module.exports = { getPosts, getPost, createPost, updatePost, deletePost };
+export default { getPosts, getPost, createPost, updatePost, deletePost };

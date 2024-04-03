@@ -1,7 +1,7 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const postRoutes = require('./routes/api/postRoutes');
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import router from './routes/api/postRoutes.js';
 
 const app = express();
 const port = 3000;
@@ -13,7 +13,7 @@ app.use(cors({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/', postRoutes);
+app.use('/', router);
 
 
 app.listen(port, () => {

@@ -41,4 +41,4 @@ const postsData = [
     }
 ]
 
-module.exports = postsData;
+export default postsData;
