@@ -4,7 +4,7 @@ import { fromFieldStyle } from "../materialui-styles/MUIStyles";
 import { useNavigate } from "react-router-dom";
 import { useContext} from "react";
 import { PostsContext } from "../App";
-import { onAddPost } from "../services/PostService";
+import axios from "axios";
 
 const PostSubmitForm = ({pos}) => {
     const { postList, setPostList } = useContext(PostsContext);
@@ -31,12 +31,19 @@ const PostSubmitForm = ({pos}) => {
             alert("Upvotes must be a number");
             return;
         }
+        formData.upvotes = parseInt(formData.upvotes);
         const date = new Date(formData.date);
         if (isNaN(date.getTime())) {
             alert("Date must be a valid date");
             return;
         }
-        onAddPost(postList, setPostList, formData)
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(formData.date) || date > new Date() || date.getFullYear() < 2022) {
+            alert("Date must be in the format YYYY-MM-DD, not in the future, and not before 2022");
+            return;
+        }
+        axios.post('http://localhost:3000/posts', formData)
+            .then(setPostList([...postList, formData]))
+            .catch(err => console.log(err));
         navigate('/posts')
     };
 

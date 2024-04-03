@@ -20,6 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { onDeleteClick } from '../services/PostService';
 import { PostsContext } from '../App';
+import axios from 'axios';
 
 const TablePaginationActions = (props) => {
   const theme = useTheme();
@@ -99,8 +100,14 @@ const PostTable = () => {
   }
 
   const handleDeleteClick = (postList, setPostList, post) => {
+    const userConfirmed = window.confirm("Are you sure you want to delete this post?");
+    if (userConfirmed) {
+      axios.delete(`http://localhost:3000/posts/${post.id}`)
+        .then(() => onDeleteClick(postList, setPostList, post))
+        .catch(err => console.log(err));
       onDeleteClick(postList, setPostList, post);
       setPage(0);
+    }
   }
 
   // Avoid a layout jump when reaching the last page with empty rows.

@@ -39,7 +39,7 @@ const App = () => {
           </Routes>
         </BrowserRouter>)
       :
-        <h1 className='page_title'>Loading...</h1>
+        <h1 className='page_title'>No Content available at the moment</h1>
     }
     </PostsContext.Provider>
   )

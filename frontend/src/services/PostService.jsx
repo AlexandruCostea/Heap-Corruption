@@ -1,9 +1,6 @@
 const onDeleteClick = (postList, setPostList, postToDelete) => {
-    const userConfirmed = window.confirm("Are you sure you want to delete this post?");
-    if (userConfirmed) {
-        const updatedPostList = postList.filter(post => post.id !== postToDelete.id);
-        setPostList(updatedPostList);
-    }
+    const updatedPostList = postList.filter(post => post.id !== postToDelete.id);
+    setPostList(updatedPostList);
 }
 
 const onAddPost = (postList, setPostList, newPost) => {
