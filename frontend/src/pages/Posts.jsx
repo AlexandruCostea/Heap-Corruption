@@ -19,13 +19,15 @@ const Posts = () => {
             <Box mt={2}/>
             {
                 postList.length > 0 ?
-                    <PostTable/>
+                    <>
+                        <PostTable/>
+                        <Box mt={2}/>
+                        <h2 className='page_title'>Users with the most upvotes</h2>
+                        <MostUpvotesChart/>
+                    </>
                 :
-                    <h2 className='page_title'>Womp Womp</h2>
+                    <h2 className='page_title'>No posts found</h2>
             }
-            <Box mt={2}/>
-            <h2 className='page_title'>Users with the most upvotes</h2>
-            <MostUpvotesChart/>
         </>
     )
 }

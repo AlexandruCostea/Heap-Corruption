@@ -2,16 +2,16 @@ import { FormControl, InputLabel, Input, Box, Button } from "@mui/material";
 import { useState } from "react";
 import { fromFieldStyle } from "../materialui-styles/MUIStyles";
 import { useNavigate } from "react-router-dom";
-import { useContext} from "react";
+import { useContext } from "react";
 import { PostsContext } from "../App";
 import axios from "axios";
 
-const PostSubmitForm = ({pos}) => {
+const PostSubmitForm = () => {
     const { postList, setPostList } = useContext(PostsContext);
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        id: pos,
+        id: null,
         username: "",
         title: "",
         description: "",
@@ -41,8 +41,11 @@ const PostSubmitForm = ({pos}) => {
             alert("Date must be in the format YYYY-MM-DD, not in the future, and not before 2022");
             return;
         }
+        
         axios.post('http://localhost:3000/posts', formData)
-            .then(setPostList([...postList, formData]))
+            .then(res => {
+                setPostList([...postList, res.data]);
+            })
             .catch(err => console.log(err));
         navigate('/posts')
     };
@@ -52,7 +55,7 @@ const PostSubmitForm = ({pos}) => {
             <FormControl sx={fromFieldStyle}>
                 <InputLabel htmlFor="username">Username</InputLabel>
                 <Input id="username" aria-describedby="my-helper-text"
-                 onChange={(e) => setFormData({ ...formData, username: e.target.value })}/>
+                    onChange={(e) => setFormData({ ...formData, username: e.target.value })}/>
             </FormControl>
             <Box mt={2}/>
             <FormControl sx={fromFieldStyle}>
@@ -76,12 +79,13 @@ const PostSubmitForm = ({pos}) => {
             <FormControl sx={fromFieldStyle}>
                 <InputLabel htmlFor="date">Date</InputLabel>
                 <Input id="date" aria-describedby="my-helper-text"
-                 onChange={(e) => setFormData({ ...formData, date: e.target.value })} />
+                    onChange={(e) => setFormData({ ...formData, date: e.target.value })} />
             </FormControl>
             <Box mt={2}/>
             <Button type="submit">Submit</Button>
         </form>
     )
+
 }
 
 export default PostSubmitForm;

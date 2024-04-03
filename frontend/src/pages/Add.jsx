@@ -3,7 +3,7 @@ import { Button } from "@mui/material"
 import { backButtonStyle } from "../materialui-styles/MUIStyles"
 import { useNavigate } from "react-router-dom"
 
-const Add = ({pos}) => {
+const Add = () => {
     const navigate = useNavigate();
     const handleBackClick = () => {
         navigate('/posts');
@@ -11,7 +11,7 @@ const Add = ({pos}) => {
     return (
         <> 
             <Button sx={backButtonStyle} onClick={() => handleBackClick()}>Back</Button>
-            <PostSubmitForm pos={pos}/>
+            <PostSubmitForm/>
         </>
     )
 }

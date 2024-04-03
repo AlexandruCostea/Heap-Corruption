@@ -5,7 +5,7 @@ const getPosts = (req, res) => {
     if (list.length > 0) {
         res.json(list);
     } else {
-        res.status(404).send('No posts found');
+        res.json([])
     }
 }
 
@@ -21,14 +21,10 @@ const getPost = (req, res) => {
 
 const createPost = (req, res) => {
     const post = req.body;
+    post.id = list.length > 0 ? Math.max(...list.map(post => post.id)) + 1 : 1;
     console.log(post);
-    const exists = list.find((post) => post.id == req.body.id);
-    if (exists) {
-        res.status(404).send(`Post with id ${req.body.id} already exists`);
-        return;
-    }
 
-    if (typeof post.id !== 'number' || typeof post.upvotes !== 'number' || !post.date || !post.username || !post.title || !post.description) {
+    if (typeof post.upvotes !== 'number' || !post.date || !post.username || !post.title || !post.description) {
         res.status(404).send('Invalid post parameters provided');
         return;
     }

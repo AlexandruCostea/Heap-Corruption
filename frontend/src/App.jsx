@@ -13,33 +13,34 @@ export const PostsContext = createContext()
 
 const App = () => {
 
-  const [postList, setPostList] = useState([])
+  const [postList, setPostList] = useState(null)
 
   useEffect(() => {
     axios.get('http://localhost:3000/posts')
       .then(res => setPostList(res.data))
-      .catch(err => console.log(err))
+      .catch(err => {console.log(err)
+      })
   }, []);
 
   return (
 
     <PostsContext.Provider value={{postList, setPostList}}>
     {
-      postList.length > 0 ? (
+      postList != null ? (
         <BrowserRouter>
           <Title/>
           <Routes>
             <Route path='/' element={<Navigate to='/posts' replace/>}/>
             <Route path='posts' element={<Posts/>}/>
             <Route path='details/post/:id' element={<Details/>} />
-            <Route path='add/post' element={
-              <Add pos={postList[postList.length - 1].id + 1}/>}/>
+            <Route path='add/post' element={<Add/>}/>
             <Route path='update/post/:id' element={<Update/>} />
             <Route path='*' element={<Unknown/>}/>
           </Routes>
         </BrowserRouter>)
-      :
-        <h1 className='page_title'>No Content available at the moment</h1>
+      : (
+        <h1 className='page_title'>Couldn't connect to server</h1>
+      )
     }
     </PostsContext.Provider>
   )
