@@ -1,6 +1,8 @@
 import postsData from '../model/data.js';
 const list = postsData;
 
+
+
 const getPosts = (req, res) => {
     if (list.length > 0) {
         res.json(list);

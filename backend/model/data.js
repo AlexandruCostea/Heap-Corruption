@@ -5,7 +5,7 @@ const postsData = [
         title: "Syntax Error on line 600 but my code is only 40 lines long",
         description: "I'm getting a syntax error on line 600 but my code is only 40 lines long. I'm not sure what's going on. Can someone help me?",
         upvotes: -500,
-        date: "2020-01-01"
+        date: "2023-01-01"
     },
     {
         id: 2,
@@ -29,7 +29,7 @@ const postsData = [
         title: "I forgot to save a backup of the Facebook database",
         description: "I forgot to save a backup of the Facebook database. Some dev deleted the entire database as a prank, thinking we have a backup. Can someone help me? I'll pay you $1,000,000 if you can recover the data.",
         upvotes: 10000,
-        date: "2025-5-25"
+        date: "2022-5-25"
     },
     {
         id: 5,
@@ -37,7 +37,7 @@ const postsData = [
         title: "How do I create a cryptocurrency?",
         description: "I heard that I can make a lot of money by scamming people with a cryptocurrency. Where do I learn how to create one. Pls help, I'm broke.",
         upvotes: 1,
-        date: "2021-5-25"
+        date: "2023-5-25"
     }
 ]
 

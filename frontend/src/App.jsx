@@ -16,10 +16,20 @@ const App = () => {
   const [postList, setPostList] = useState(null)
 
   useEffect(() => {
-    axios.get('http://localhost:3000/posts')
-      .then(res => setPostList(res.data))
-      .catch(err => {console.log(err)
-      })
+    const fetchData = async () => {
+      try {
+        console.log('Fetching data...')
+        const res = await axios.get('http://localhost:3000/posts')
+        setPostList(res.data)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
+    fetchData()
+
+    const intervalId = setInterval(fetchData, 10000)
+
+    return () => clearInterval(intervalId)
   }, []);
 
   return (
