@@ -14,23 +14,43 @@ export const PostsContext = createContext()
 const App = () => {
 
   const [postList, setPostList] = useState(null)
+  const [isOnline, setIsOnline] = useState(navigator.onLine)
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log('Fetching data...')
-        const res = await axios.get('http://localhost:3000/posts')
-        setPostList(res.data)
-      } catch (error) {
-        console.error('Error fetching data:', error)
-      }
-    }
-    fetchData()
-
-    const intervalId = setInterval(fetchData, 10000)
-
-    return () => clearInterval(intervalId)
+    axios.get('http://localhost:3000/posts')
+    .then(res => {
+      setPostList(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }, []);
+
+  useEffect(() => {
+    const handleStatusChange = () => {
+      setIsOnline(navigator.onLine);
+    };
+
+    window.addEventListener('online', handleStatusChange);
+
+    window.addEventListener('offline', handleStatusChange);
+
+    return () => {
+      window.removeEventListener('online', handleStatusChange);
+      window.removeEventListener('offline', handleStatusChange);
+    };
+  }, [isOnline]);
+
+  useEffect(() => {
+    const ws = new WebSocket('ws://localhost:3001');
+
+    console.log('connected to server');
+
+    ws.addEventListener('message', (event) => {
+      const newData = JSON.parse(event.data);
+      setPostList(newData);
+      });
+    }, [])
 
   return (
 
@@ -48,8 +68,12 @@ const App = () => {
             <Route path='*' element={<Unknown/>}/>
           </Routes>
         </BrowserRouter>)
-      : (
+      : isOnline ? (
         <h1 className='page_title'>Couldn't connect to server</h1>
+      ) 
+      : 
+      (
+        <h1 className='page_title'>No internet connection</h1>
       )
     }
     </PostsContext.Provider>
