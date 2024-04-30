@@ -1,16 +1,16 @@
 import { BarChart } from "@mui/x-charts";
 import {useContext} from "react";
-import {PostsContext} from "../App";
+import {AppContext} from "../App";
 
 
 const MostUpvotesChart = () => {
-    const {postList, _ } = useContext(PostsContext);
+    const {postList, userList } = useContext(AppContext);
     let userUpvotes = {};
     postList.forEach(post => {
-        if (userUpvotes[post.username]) {
-            userUpvotes[post.username] += post.upvotes;
+        if (userUpvotes[post.userId]) {
+            userUpvotes[post.userId] += post.upvotes;
         } else {
-            userUpvotes[post.username] = post.upvotes;
+            userUpvotes[post.userId] = post.upvotes;
         }
     });
 
@@ -24,7 +24,7 @@ const MostUpvotesChart = () => {
                 }
             ]}
             height={400}
-            xAxis={[{ data: topFiveUsers.map(user => user[0]), scaleType: 'band' }]}
+            xAxis={[{ data: topFiveUsers.map(user => userList.find(u => u.id === parseInt(user[0])).username), scaleType: 'band' }]}
             margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
         />
     )

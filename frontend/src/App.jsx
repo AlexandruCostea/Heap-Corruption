@@ -1,25 +1,36 @@
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import Posts from './pages/Posts'
-import Details from './pages/Details'
+import DisplayPosts from './pages/DisplayPosts'
+import DetailsPost from './pages/DetailsPost'
 import Title from './pages/Title'
-import Update from './pages/Update'
-import Add from './pages/Add'
+import UpdatePost from './pages/UpdatePost'
+import AddPost from './pages/AddPost'
 import Unknown from './pages/Unknown'
 import { useState, createContext, useEffect } from 'react'
 import axios from 'axios'
 
-export const PostsContext = createContext()
+export const AppContext = createContext()
 
 const App = () => {
 
   const [postList, setPostList] = useState(null)
+  const [userList, setUserList] = useState(null)
   const [isOnline, setIsOnline] = useState(navigator.onLine)
 
   useEffect(() => {
-    axios.get('http://localhost:3000/posts')
+    axios.get('http://localhost:8080/api/posts')
     .then(res => {
       setPostList(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }, []);
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/users')
+    .then(res => {
+      setUserList(res.data)
     })
     .catch(err => {
       console.log(err)
@@ -41,6 +52,7 @@ const App = () => {
     };
   }, [isOnline]);
 
+  /*
   useEffect(() => {
     const ws = new WebSocket('ws://localhost:3001');
 
@@ -50,21 +62,21 @@ const App = () => {
       const newData = JSON.parse(event.data);
       setPostList(newData);
       });
-    }, [])
+    }, []) */
 
   return (
 
-    <PostsContext.Provider value={{postList, setPostList}}>
+    <AppContext.Provider value={{postList, setPostList, userList, setUserList}}>
     {
       postList != null ? (
         <BrowserRouter>
           <Title/>
           <Routes>
             <Route path='/' element={<Navigate to='/posts' replace/>}/>
-            <Route path='posts' element={<Posts/>}/>
-            <Route path='details/post/:id' element={<Details/>} />
-            <Route path='add/post' element={<Add/>}/>
-            <Route path='update/post/:id' element={<Update/>} />
+            <Route path='posts' element={<DisplayPosts/>}/>
+            <Route path='details/post/:id' element={<DetailsPost/>} />
+            <Route path='add/post' element={<AddPost/>}/>
+            <Route path='update/post/:id' element={<UpdatePost/>} />
             <Route path='*' element={<Unknown/>}/>
           </Routes>
         </BrowserRouter>)
@@ -76,7 +88,7 @@ const App = () => {
         <h1 className='page_title'>No internet connection</h1>
       )
     }
-    </PostsContext.Provider>
+    </AppContext.Provider>
   )
 }
 export default App
