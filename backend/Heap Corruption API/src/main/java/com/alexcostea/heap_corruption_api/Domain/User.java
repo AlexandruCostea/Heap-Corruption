@@ -14,6 +14,7 @@ public class User {
     private String username;
     private String firstName;
     private String lastName;
+    private String password;
     private Long nrPosts = 0L;
 
     public User() {

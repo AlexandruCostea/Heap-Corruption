@@ -32,6 +32,7 @@ const DetailsPost = () => {
 
     const navigate = useNavigate();
     const colSpanList = [2, 1, 1, 2, 1];
+
     const handleBackClick = () => {
         navigate('/posts');
     }

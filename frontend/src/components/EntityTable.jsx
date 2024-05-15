@@ -84,15 +84,24 @@ TablePaginationActions.propTypes = {
 };
 
 
-const EntityTable = ({entityList, setEntityList, config}) => {
+const EntityTable = ({entityList, setEntityList, config, checkFunction}) => {
   
+  const {token, setToken} = useContext(AppContext);
   entityList.sort((a, b) => (a[config.displayField] < b[config.displayField]) ? 1 : -1);
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleUpdateClick = (entity) => {
-    navigate(config.updatePath + entity.id);
+    const expirationDate = new Date(token.expirationDate);
+    const currentDate = new Date();
+    if (expirationDate > currentDate) {
+      navigate(config.updatePath + entity.id);
+    }
+    else {
+      setToken(null);
+      alert('Login expired');
+    }
   }
 
   const handleDetailsClick = (entity) => {
@@ -100,12 +109,20 @@ const EntityTable = ({entityList, setEntityList, config}) => {
   }
 
   const handleDeleteClick = (entityList, setEntityList, entity) => {
-    const userConfirmed = window.confirm(config.deleteConfirmationMessage);
-    if (userConfirmed) {
-      axios.delete(config.deletePath + entity.id)
-        .then(() => deleteEntity(entityList, setEntityList, entity))
-        .catch(err => alert(err));
-      setPage(0);
+    const expirationDate = new Date(token.expirationDate);
+    const currentDate = new Date();
+    if (expirationDate > currentDate) {
+      const userConfirmed = window.confirm(config.deleteConfirmationMessage);
+      if (userConfirmed) {
+        axios.delete(config.deletePath + entity.id)
+          .then(() => deleteEntity(entityList, setEntityList, entity))
+          .catch(err => alert(err));
+        setPage(0);
+      }
+    }
+    else {
+      setToken(null);
+      alert('Login expired');
     }
   }
 
@@ -132,16 +149,26 @@ const EntityTable = ({entityList, setEntityList, config}) => {
             : entityList
           ).map((entity) => (
             <TableRow className='tableRow' sx={rowStyle} key={entity.id}>
-                            <TableCell align='center'>
+                            {
+                            token && checkFunction(entity, token) ? (
+                            <>
+                              <TableCell align='center'>
                                 <Button sx={postCellStyle} onClick={() => handleDetailsClick(entity)}>{entity[config.displayField]}</Button>
+                              </TableCell>
+                              <TableCell sx={cellStyle} align='center'>
+                                  <Button sx={deleteButtonStyle} onClick={
+                                      () => handleDeleteClick(entityList, setEntityList, entity)}>Delete</Button>
+                              </TableCell>
+                              <TableCell sx={cellStyle} align='center'>
+                                  <Button sx={updateButtonStyle} onClick={() => handleUpdateClick(entity)}>Update</Button>
+                              </TableCell> 
+                            </>
+                            ) : (
+                              <TableCell align='center' colSpan={3}>
+                              <Button sx={postCellStyle} onClick={() => handleDetailsClick(entity)}>{entity[config.displayField]}</Button>
                             </TableCell>
-                            <TableCell sx={cellStyle} align='center'>
-                                <Button sx={deleteButtonStyle} onClick={
-                                    () => handleDeleteClick(entityList, setEntityList, entity)}>Delete</Button>
-                            </TableCell>
-                            <TableCell sx={cellStyle} align='center'>
-                                <Button sx={updateButtonStyle} onClick={() => handleUpdateClick(entity)}>Update</Button>
-                            </TableCell>
+                            )
+                            }
                         </TableRow>
           ))}
           {emptyRows > 0 && (

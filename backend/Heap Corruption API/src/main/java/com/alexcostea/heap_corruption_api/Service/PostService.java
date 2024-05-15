@@ -71,6 +71,17 @@ public class PostService {
         if (!userRepository.existsById(post.getUserId())) {
             throw new Exception("User not found");
         }
+
+        Post originalPost = postRepository.findById(id).get();
+
+        if (!originalPost.getUserId().equals(post.getUserId())) {
+            User originalUser = userRepository.findById(originalPost.getUserId()).get();
+            originalUser.setNrPosts(originalUser.getNrPosts() - 1);
+            userRepository.save(originalUser);
+            User newUser = userRepository.findById(post.getUserId()).get();
+            newUser.setNrPosts(newUser.getNrPosts() + 1);
+            userRepository.save(newUser);
+        }
         return postRepository.save(post);
     }
 }

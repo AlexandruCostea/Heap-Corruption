@@ -6,6 +6,9 @@ import Title from './pages/Title'
 import UpdatePost from './pages/UpdatePost'
 import AddPost from './pages/AddPost'
 import Unknown from './pages/Unknown'
+import Login from './pages/Login'
+import SignUp from './pages/SignUp'
+import UserDetails from './pages/UserDetails'
 import { useState, createContext, useEffect } from 'react'
 import axios from 'axios'
 
@@ -16,6 +19,7 @@ const App = () => {
   const [postList, setPostList] = useState(null)
   const [userList, setUserList] = useState(null)
   const [isOnline, setIsOnline] = useState(navigator.onLine)
+  const [token, setToken] = useState(null)
 
   useEffect(() => {
     axios.get('http://localhost:8080/api/posts')
@@ -52,21 +56,49 @@ const App = () => {
     };
   }, [isOnline]);
 
-  /*
+  
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:3001');
+    const ws = new WebSocket('ws://localhost:8080/ws');
 
-    console.log('connected to server');
+    ws.onopen = () => {
+      console.log('WebSocket connection established.');
+    };
+    
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+    
+    ws.onclose = () => {
+      console.log('WebSocket connection closed.');
+    };
 
+    
     ws.addEventListener('message', (event) => {
-      const newData = JSON.parse(event.data);
-      setPostList(newData);
-      });
-    }, []) */
+      console.log('Message from server ', event.data);
+      //const newData = JSON.parse(event.data);
+      //console.log(newData);
+      //setPostList(newData)
+      }); 
+    }, []); 
+
+    /*
+  useEffect(() => {
+    const interval = setInterval(() => {
+      axios.get('http://localhost:8080/api/posts')
+      .then(res => {
+        setPostList(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []); */
+
 
   return (
 
-    <AppContext.Provider value={{postList, setPostList, userList, setUserList}}>
+    <AppContext.Provider value={{postList, setPostList, userList, setUserList, token, setToken}}>
     {
       postList != null ? (
         <BrowserRouter>
@@ -77,6 +109,9 @@ const App = () => {
             <Route path='details/post/:id' element={<DetailsPost/>} />
             <Route path='add/post' element={<AddPost/>}/>
             <Route path='update/post/:id' element={<UpdatePost/>} />
+            <Route path='login' element={<Login/>}/>
+            <Route path='signup' element={<SignUp/>}/>
+            <Route path='account' element={<UserDetails/>}/>
             <Route path='*' element={<Unknown/>}/>
           </Routes>
         </BrowserRouter>)

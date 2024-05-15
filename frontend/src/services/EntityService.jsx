@@ -17,12 +17,13 @@ const updateEntity = (list, setList, updatedEntity, id) => {
     setList(newList);
 }
 
-const validateEntity = (type, formData, parentEntityList = null) => {
+const validateEntity = (type, formData, parentEntityList) => {
     if (type === "post") {
         return validatePost(formData, parentEntityList);
-    } else {
-        return validateUser(formData);
+    } else if (type === "user") {
+        return validateUser(formData, parentEntityList);
     }
+    return validateLogin(formData, parentEntityList);
 }
 
 const validatePost = (formData, parentEntityList) => {
@@ -63,7 +64,39 @@ const validatePost = (formData, parentEntityList) => {
     return {status: true, entity: data, message: null};
 }
 
-const validateUser = (formData) => {
+const validateUser = (formData, parentEntityList) => {
+    for (const key in formData) {
+        if (formData[key] === "") {
+            return {status: false, entity: null, message: "All fields are required"};
+        }
+    }
+    if(parentEntityList.some(entity => entity.username === formData.username)) {
+        return {status: false, entity: null, message: "Username already exists"};
+    }
+
+    const data = {
+        username: formData.username,
+        password: formData.password,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        nrPosts: 0
+    }
+    return {status: true, entity: data, message: null};
+}
+
+const validateLogin = (formData, parentEntityList) => {
+    for (const key in formData) {
+        if (formData[key] === "") {
+            return {status: false, entity: null, message: "All fields are required"};
+        }
+    }
+    if (!parentEntityList) {
+        return {status: false, entity: null, message: "Parent entity list is required"};
+    }
+    if (!parentEntityList.some(entity => entity.username === formData.username)) {
+        return {status: false, entity: null, message: "Username not found"};
+    }
+    return {status: true, entity: formData, message: null};
 }
 
 export { deleteEntity, addEntity, updateEntity, validateEntity };

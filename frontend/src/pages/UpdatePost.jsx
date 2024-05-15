@@ -20,7 +20,7 @@ const UpdatePost = () => {
         navigate('/posts');
     }
 
-    const config = CreateConfig(id, post, userList);
+    const config = CreateConfig(id, post);
 
     return (
         <>

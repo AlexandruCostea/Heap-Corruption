@@ -1,17 +1,20 @@
 import { FormControl, InputLabel, Input, Box, Button } from "@mui/material";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { fromFieldStyle } from "../materialui-styles/MUIStyles";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../App";
 import axios from "axios";
 
 const Form = ({entityList, setEntityList, parentEntityList = null, updateEntity = null, validateEntity, id = null, config}) => {
     const navigate = useNavigate();
 
+    const {token, setToken, userList} = useContext(AppContext);
     const [formData, setFormData] = useState(config.initialState);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const validationResult = validateEntity("post", formData, parentEntityList);
+        console.log(formData);
+        const validationResult = validateEntity(config.validateEntity, formData, parentEntityList);
 
         if (!validationResult.status) {
             alert(validationResult.message);
@@ -19,6 +22,7 @@ const Form = ({entityList, setEntityList, parentEntityList = null, updateEntity 
         }
 
         const data = validationResult.entity;
+
         
         if (config.requestType === 'POST') {
             axios.post(config.requestPath, data)
