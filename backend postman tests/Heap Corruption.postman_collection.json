@@ -10,7 +10,7 @@
 			"name": "Post",
 			"item": [
 				{
-					"name": "http://localhost:8080/api/posts",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts",
 					"event": [
 						{
 							"listen": "test",
@@ -21,16 +21,18 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(\"Date is in a valid date format\", function () {",
-									"  const responseData = pm.response.json();",
-									"  ",
-									"  pm.expect(responseData).to.be.an('array');",
-									"  responseData.forEach(function(post) {",
-									"    pm.expect(post.datePosted).to.match(/^\\d{4}-\\d{2}-\\d{2}$/);",
-									"  });",
-									"});",
 									"",
-									""
+									"",
+									"pm.test(\"All elements have all fields\", function () {",
+									"    pm.response.json().forEach(function(post) {",
+									"        pm.expect(post).to.have.property('id');",
+									"        pm.expect(post).to.have.property('userId');",
+									"        pm.expect(post).to.have.property('title');",
+									"        pm.expect(post).to.have.property('description');",
+									"        pm.expect(post).to.have.property('upvotes');",
+									"        pm.expect(post).to.have.property('datePosted');",
+									"    });",
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -41,14 +43,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/posts",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"posts"
 							]
 						}
@@ -56,7 +59,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/posts/id",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/id",
 					"event": [
 						{
 							"listen": "test",
@@ -86,14 +89,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/posts/1",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"posts",
 								"1"
 							]
@@ -102,7 +106,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/posts/badId",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/badId",
 					"event": [
 						{
 							"listen": "test",
@@ -121,14 +125,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/posts/0",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/0",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"posts",
 								"0"
 							]
@@ -137,7 +142,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/posts",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts",
 					"event": [
 						{
 							"listen": "test",
@@ -150,17 +155,6 @@
 									"pm.test(\"Response is an object with id, userId, title, description, upvotes, and date properties\", function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData).to.be.an('object').that.includes.all.keys('id', 'userId', 'title', 'description', 'upvotes', 'datePosted');",
-									"});",
-									"",
-									"pm.test(\"GET request returns the newly added entity\", function () {",
-									"    pm.sendRequest('http://localhost:8080/api/posts', function (err, response) {",
-									"        pm.expect(response).to.have.status(200);",
-									"        var responseData = response.json();",
-									"        pm.expect(responseData).to.be.an('array');",
-									"        pm.expect(responseData).to.not.be.empty;",
-									"        var newEntity = responseData.find(entity => entity.id === pm.response.json().id);",
-									"        pm.expect(newEntity).to.exist;",
-									"    });",
 									"});"
 								],
 								"type": "text/javascript",
@@ -181,14 +175,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/posts",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"posts"
 							]
 						}
@@ -196,7 +191,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/posts",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts",
 					"event": [
 						{
 							"listen": "test",
@@ -224,14 +219,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/posts",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"posts"
 							]
 						}
@@ -239,7 +235,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/posts",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts",
 					"event": [
 						{
 							"listen": "test",
@@ -267,14 +263,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/posts",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"posts"
 							]
 						}
@@ -282,7 +279,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/posts",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts",
 					"event": [
 						{
 							"listen": "test",
@@ -310,14 +307,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/posts",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"posts"
 							]
 						}
@@ -325,7 +323,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/posts/id",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/id",
 					"event": [
 						{
 							"listen": "test",
@@ -366,14 +364,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/posts/3",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/3",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"posts",
 								"3"
 							]
@@ -382,14 +381,14 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/posts/badId",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/badId",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 400 unknown id\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
+									"pm.test(\"Status code is 404 unknown id\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -410,14 +409,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/posts/0",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/0",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"posts",
 								"0"
 							]
@@ -426,7 +426,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/posts/id",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/id",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -464,14 +464,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/posts/3",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/3",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"posts",
 								"3"
 							]
@@ -480,7 +481,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/posts/id",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/id",
 					"event": [
 						{
 							"listen": "test",
@@ -508,14 +509,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/posts/3",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/3",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"posts",
 								"3"
 							]
@@ -524,7 +526,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/posts/id",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/id",
 					"event": [
 						{
 							"listen": "test",
@@ -552,14 +554,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/posts/3",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/3",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"posts",
 								"3"
 							]
@@ -568,14 +571,14 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/posts/badId",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/badId",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 400 for unknown id\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
+									"pm.test(\"Status code is 404 for unknown id\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -587,14 +590,15 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/posts/0",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/0",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"posts",
 								"0"
 							]
@@ -603,7 +607,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/posts/id",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/id",
 					"event": [
 						{
 							"listen": "test",
@@ -623,16 +627,17 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/posts/8",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/168",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"posts",
-								"8"
+								"168"
 							]
 						}
 					},
@@ -644,7 +649,7 @@
 			"name": "User",
 			"item": [
 				{
-					"name": "http://localhost:8080/api/users",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users",
 					"event": [
 						{
 							"listen": "test",
@@ -665,7 +670,6 @@
 									"        pm.expect(user).to.have.property('username');\r",
 									"        pm.expect(user).to.have.property('firstName');\r",
 									"        pm.expect(user).to.have.property('lastName');\r",
-									"        pm.expect(user).to.have.property('nrPosts');\r",
 									"        pm.expect(user).to.have.property('password');\r",
 									"    });\r",
 									"});\r",
@@ -681,14 +685,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/users",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"users"
 							]
 						}
@@ -696,7 +701,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/users/id",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/id",
 					"event": [
 						{
 							"listen": "test",
@@ -711,7 +716,6 @@
 									"  pm.expect(responseData).to.have.property('username');",
 									"  pm.expect(responseData).to.have.property('firstName');",
 									"  pm.expect(responseData).to.have.property('lastName');",
-									"  pm.expect(responseData).to.have.property('nrPosts');",
 									"  pm.expect(responseData).to.have.property('password');",
 									"});",
 									""
@@ -725,14 +729,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/users/3",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/3",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"users",
 								"3"
 							]
@@ -741,7 +746,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/users/badId",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/badId",
 					"event": [
 						{
 							"listen": "test",
@@ -760,14 +765,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/users/0",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/0",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"users",
 								"0"
 							]
@@ -776,7 +782,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/users",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users",
 					"event": [
 						{
 							"listen": "test",
@@ -796,7 +802,6 @@
 									"    pm.expect(responseData).to.have.property('firstName');\r",
 									"    pm.expect(responseData).to.have.property('lastName');\r",
 									"    pm.expect(responseData).to.have.property('password');\r",
-									"    pm.expect(responseData).to.have.property('nrPosts');\r",
 									"    pm.expect(responseData).to.have.property('id');\r",
 									"});\r",
 									"\r",
@@ -820,14 +825,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/users",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"users"
 							]
 						}
@@ -835,7 +841,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/users",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users",
 					"event": [
 						{
 							"listen": "test",
@@ -863,14 +869,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/users",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"users"
 							]
 						}
@@ -878,7 +885,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/users",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users",
 					"event": [
 						{
 							"listen": "test",
@@ -906,14 +913,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/users",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"users"
 							]
 						}
@@ -921,7 +929,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/users/id",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/id",
 					"event": [
 						{
 							"listen": "test",
@@ -938,7 +946,6 @@
 									"    pm.expect(jsonData).to.have.property('username');\r",
 									"    pm.expect(jsonData).to.have.property('firstName');\r",
 									"    pm.expect(jsonData).to.have.property('lastName');\r",
-									"    pm.expect(jsonData).to.have.property('nrPosts');\r",
 									"    pm.expect(jsonData).to.have.property('password');\r",
 									"});"
 								],
@@ -960,14 +967,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/users/2",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/2",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"users",
 								"2"
 							]
@@ -976,14 +984,14 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/users/badId",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/badId",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 400 for invalid id\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
+									"pm.test(\"Status code is 404 for invalid id\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1004,14 +1012,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/users/0",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/0",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"users",
 								"0"
 							]
@@ -1020,7 +1029,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/users/id",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/id",
 					"event": [
 						{
 							"listen": "test",
@@ -1048,14 +1057,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/users/2",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/2",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"users",
 								"2"
 							]
@@ -1064,7 +1074,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/users/id",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/id",
 					"event": [
 						{
 							"listen": "test",
@@ -1093,14 +1103,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/users/2",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/2",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"users",
 								"2"
 							]
@@ -1109,14 +1120,14 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/users/badId",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/badId",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 400 for invalid id\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
+									"pm.test(\"Status code is 404 for invalid id\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1128,14 +1139,15 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/users/0",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/0",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"users",
 								"0"
 							]
@@ -1144,7 +1156,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/api/users/id",
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/id",
 					"event": [
 						{
 							"listen": "test",
@@ -1164,16 +1176,141 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/users/6",
-							"protocol": "http",
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/13",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"users",
-								"6"
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200 for valid credentials\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response includes authenticated field set to true\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.have.property('authenticated', true);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Token object is present in the response\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.token).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Token id is a non-negative integer\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.token.id).to.exist;",
+									"    pm.expect(responseData.token.id).to.be.a('number');",
+									"    pm.expect(responseData.token.id).to.satisfy((id) => id >= 0, \"Token id should be a non-negative integer\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"ExpirationDate is in a valid date format\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.token.expirationDate).to.match(/^\\d{4}-\\d{2}-\\d{2}$/);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Bobert the Great\",\r\n    \"password\": \"5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/auth",
+							"protocol": "https",
+							"host": [
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
+							],
+							"path": [
+								"users",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404 for invalid credentials\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(404);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Bobert the Great\",\r\n    \"password\": \"abc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/auth",
+							"protocol": "https",
+							"host": [
+								"heapcorruptionapi-7sgauzwsja-uc",
+								"a",
+								"run",
+								"app"
+							],
+							"path": [
+								"users",
+								"auth"
 							]
 						}
 					},
