@@ -44,18 +44,18 @@ const DisplayPosts = () => {
         if(expirationDate > currentDate) {
             if(window.confirm('Are you sure you want to delete your account?')) {
                 const userId = token.id;
-                axios.delete('http://localhost:8080/api/users/' + userId)
+                axios.delete('http://localhost:3000/users/' + userId)
                 .then(res => {
                     setToken(null);
                     alert('Account deleted');
-                    axios.get('http://localhost:8080/api/posts')
+                    axios.get('http://localhost:3000/posts')
                     .then(res => {
                         setPostList(res.data);
                     })
                     .catch(err => {
                         console.log(err);
                     });
-                    axios.get('http://localhost:8080/api/users')
+                    axios.get('http://localhost:3000/users')
                     .then(res => {
                         setUserList(res.data);
                     })
@@ -80,7 +80,7 @@ const DisplayPosts = () => {
         return post.userId === token.id;
     }
 
-    const config = CreateConfig('title', '/update/post/', '/details/post/', 'http://localhost:8080/api/posts/', 'post')
+    const config = CreateConfig('title', '/update/post/', '/details/post/', 'http://localhost:3000/posts/', 'post')
     return (
         <>
             {

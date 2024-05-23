@@ -4,7 +4,7 @@ import { validateEntity } from "../services/EntityService";
 const CreateConfig = () => {
     return {
         requestType: 'POST',
-        requestPath: 'http://localhost:8080/api/users',
+        requestPath: 'http://localhost:3000/users',
         redirectPath: '/posts',
         validateEntity: 'user',
         fields: [

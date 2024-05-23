@@ -5,7 +5,7 @@ const CreateConfig = () => {
     const { token, userList } = useContext(AppContext);
     return {
         requestType: 'POST',
-        requestPath: 'http://localhost:8080/api/posts',
+        requestPath: 'http://localhost:3000/posts',
         redirectPath: '/posts',
         validateEntity: 'post',
         fields: [

@@ -4,7 +4,7 @@ import {AppContext} from "../App";
 
 
 const MostUpvotesChart = () => {
-    const {postList, userList } = useContext(AppContext);
+    const {postList } = useContext(AppContext);
     let userUpvotes = {};
     postList.forEach(post => {
         if (userUpvotes[post.userId]) {
@@ -24,7 +24,7 @@ const MostUpvotesChart = () => {
                 }
             ]}
             height={400}
-            xAxis={[{ data: topFiveUsers.map(user => userList.find(u => u.id === parseInt(user[0])).username), scaleType: 'band' }]}
+            //xAxis={[{ data: topFiveUsers.map(user => userList.find(u => u.id === parseInt(user[0])).username), scaleType: 'band' }]}
             margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
         />
     )

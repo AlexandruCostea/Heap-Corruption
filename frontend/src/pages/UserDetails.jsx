@@ -25,9 +25,9 @@ const UserDetails = () => {
         const currentDate = new Date();
         if(expirationDate > currentDate) {
             event.preventDefault();
-            axios.put('http://localhost:8080/api/users/' + token.id, data)
+            axios.put('http://localhost:3000/users/' + token.id, data)
             .then(res => {
-                axios.get('http://localhost:8080/api/users')
+                axios.get('http://localhost:3000/users')
                 .then(res => {
                     setUserList(res.data);
                     navigate('/posts');

@@ -22,17 +22,19 @@ const App = () => {
   const [token, setToken] = useState(null)
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/posts')
+    axios.get('http://localhost:3000/posts')
     .then(res => {
+      console.log("Success")
       setPostList(res.data)
     })
     .catch(err => {
+      console.log("Error")
       console.log(err)
     })
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/users')
+    axios.get('http://localhost:3000/users')
     .then(res => {
       setUserList(res.data)
     })
@@ -58,43 +60,14 @@ const App = () => {
 
   
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:8080/ws');
-
-    ws.onopen = () => {
-      console.log('WebSocket connection established.');
-    };
-    
-    ws.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
-    
-    ws.onclose = () => {
-      console.log('WebSocket connection closed.');
-    };
-
+    const ws = new WebSocket('ws://localhost:3001/ws');
     
     ws.addEventListener('message', (event) => {
-      console.log('Message from server ', event.data);
-      //const newData = JSON.parse(event.data);
-      //console.log(newData);
-      //setPostList(newData)
+      const newData = JSON.parse(event.data);
+      setPostList(newData.posts);
+      setUserList(newData.users);
       }); 
     }, []); 
-
-    /*
-  useEffect(() => {
-    const interval = setInterval(() => {
-      axios.get('http://localhost:8080/api/posts')
-      .then(res => {
-        setPostList(res.data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []); */
-
 
   return (
 

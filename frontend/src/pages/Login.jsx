@@ -21,10 +21,10 @@ const Login = () => {
 
         const hashedPassword = CryptoJS.SHA256(password).toString();
 
-        axios.post('http://localhost:8080/api/auth/' + username + '/' + hashedPassword)
+        axios.post('http://localhost:3000/users/auth', {username: username, password: hashedPassword})
         .then(res => {
             if(res.data.authenticated) { 
-                const token = JSON.parse(res.data.token);
+                const token = res.data.token;
                 token.id = parseInt(token.id);
                 setToken(token);
                 navigate('/posts');
