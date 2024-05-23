@@ -22,7 +22,7 @@ const App = () => {
   const [token, setToken] = useState(null)
 
   useEffect(() => {
-    axios.get('http://localhost:3000/posts')
+    axios.get('https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts')
     .then(res => {
       console.log("Success")
       setPostList(res.data)
@@ -34,7 +34,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/users')
+    axios.get('https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users')
     .then(res => {
       setUserList(res.data)
     })
@@ -60,7 +60,7 @@ const App = () => {
 
   
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:3001/ws');
+    const ws = new WebSocket('ws://heapcorruptionapi-7sgauzwsja-uc.a.run.app:3001/ws');
     
     ws.addEventListener('message', (event) => {
       const newData = JSON.parse(event.data);

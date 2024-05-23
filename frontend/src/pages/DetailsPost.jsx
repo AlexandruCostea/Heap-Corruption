@@ -14,7 +14,7 @@ const DetailsPost = () => {
     const [post, setPost] = useState(null)
     const [displayedPost, setDisplayedPost] = useState(null)
     useEffect(() => {
-        axios.get(`http://localhost:3000/posts/${id}`)
+        axios.get(`https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/${id}`)
             .then(res => {
                 setPost(res.data)
                 setDisplayedPost(

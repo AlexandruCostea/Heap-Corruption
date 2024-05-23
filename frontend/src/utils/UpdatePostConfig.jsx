@@ -6,7 +6,7 @@ const CreateConfig = (id, post) => {
 
     return {
         requestType: 'PUT',
-        requestPath: 'http://localhost:3000/posts/' + id,
+        requestPath: 'https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/' + id,
         redirectPath: '/posts',
         validateEntity: 'post',
         fields: [

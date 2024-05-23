@@ -44,18 +44,18 @@ const DisplayPosts = () => {
         if(expirationDate > currentDate) {
             if(window.confirm('Are you sure you want to delete your account?')) {
                 const userId = token.id;
-                axios.delete('http://localhost:3000/users/' + userId)
+                axios.delete('https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/' + userId)
                 .then(res => {
                     setToken(null);
                     alert('Account deleted');
-                    axios.get('http://localhost:3000/posts')
+                    axios.get('https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts')
                     .then(res => {
                         setPostList(res.data);
                     })
                     .catch(err => {
                         console.log(err);
                     });
-                    axios.get('http://localhost:3000/users')
+                    axios.get('https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users')
                     .then(res => {
                         setUserList(res.data);
                     })
@@ -80,7 +80,7 @@ const DisplayPosts = () => {
         return post.userId === token.id;
     }
 
-    const config = CreateConfig('title', '/update/post/', '/details/post/', 'http://localhost:3000/posts/', 'post')
+    const config = CreateConfig('title', '/update/post/', '/details/post/', 'https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/posts/', 'post')
     return (
         <>
             {

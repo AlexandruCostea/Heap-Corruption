@@ -21,7 +21,7 @@ const Login = () => {
 
         const hashedPassword = CryptoJS.SHA256(password).toString();
 
-        axios.post('http://localhost:3000/users/auth', {username: username, password: hashedPassword})
+        axios.post('https://heapcorruptionapi-7sgauzwsja-uc.a.run.app/users/auth', {username: username, password: hashedPassword})
         .then(res => {
             if(res.data.authenticated) { 
                 const token = res.data.token;
