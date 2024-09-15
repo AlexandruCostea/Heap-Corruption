@@ -1,13 +1,14 @@
 # Heap Corruption (Under Development)
 
 Heap Corruption is a web application built to address and discuss various issues encountered in the field of Information Technology.
-It serves as a platform for users to post questions, seek assistance, and engage in discussions related to IT problems, like **Stack Overflow**
+It serves as a platform for users to post questions, seek assistance, and engage in discussions related to IT problems, like **Stack Overflow**.<br><br>
+Previously deployed on Google Cloud Run platform
 
 ## Tech Stack
 
 - **Frontend:** Built with React and Vite.
 - **Backend:** Developed using Express.js.
-- **Database:** Coming soon
+- **Database:** Postgresql
 
 ## Getting Started
 
